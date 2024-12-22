@@ -1,6 +1,6 @@
 {
   "name": "line-rect-hit",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "line-rect-hit.js",
   "scripts": {
     "dev": "vite",
