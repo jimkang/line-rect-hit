@@ -135,6 +135,10 @@ export function linesIntersect(lineA, lineB) {
 
   const intersection = intersect(lineA.pt1, lineA.pt2, lineB.pt1, lineB.pt2);
   // console.log(intersection);
+  if (!intersection) {
+    // This happens with perfectly parallel lines.
+    return false;
+  }
   // But is this intersection actually in both line segments?
   if (intersection[0] < lineALeft || intersection[0] > lineARight) {
     return false;

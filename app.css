@@ -95,6 +95,10 @@ line {
   fill: #fff;
 }
 
+footer {
+  margin-top: 4em;
+}
+
 @media all and (max-height: 568px) {
   body {
     font-size: 18px;
