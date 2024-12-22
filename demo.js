@@ -2,7 +2,7 @@ import { version } from './package.json';
 import './app.css';
 import { select, pointer } from 'd3-selection';
 import { getVectorMagnitude, subtractPairs } from 'basic-2d-math';
-import { lineRectHit } from './line-rect-hit';
+import { lineRectHit, linesIntersect } from './line-rect-hit';
 
 var boardSel = select('#board');
 var boxSel = select('#box');
@@ -133,7 +133,7 @@ function onMouseMove(e) {
   }
 
   renderAnswer(lineRectHit({ line: linePoints, rect: boxRect }));
-  renderLineAnswer(lineRectHit({ line: lineBPoints, rect: boxRect }));
+  renderLineAnswer(linesIntersect(linePoints, lineBPoints));
   renderLine(lineSel, linePoints);
   renderLine(lineBSel, lineBPoints);
   renderBox(boxRect);

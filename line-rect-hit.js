@@ -1,3 +1,4 @@
+import { intersect } from 'mathjs';
 // line format:
 // {
 //  pt1: [number, number];
@@ -104,4 +105,48 @@ function calcLineY(m, x, b) {
 
 function isInBounds(n, low, high) {
   return n >= low && n <= high;
+}
+
+export function linesIntersect(lineA, lineB) {
+  const lineALeft = Math.min(lineA.pt1[0], lineA.pt2[0]);
+  const lineBRight = Math.max(lineB.pt1[0], lineB.pt2[0]);
+  if (lineALeft > lineBRight) {
+    // No shared x-space.
+    return false;
+  }
+  const lineARight = Math.max(lineA.pt1[0], lineA.pt2[0]);
+  const lineBLeft = Math.min(lineB.pt1[0], lineB.pt2[0]);
+  if (lineBLeft > lineARight) {
+    // No shared x-space.
+    return false;
+  }
+  const lineATop = Math.min(lineA.pt1[1], lineA.pt2[1]);
+  const lineBBottom = Math.max(lineB.pt1[1], lineB.pt2[1]);
+  if (lineATop > lineBBottom) {
+    // No shared y-space.
+    return false;
+  }
+  const lineABottom = Math.max(lineA.pt1[1], lineA.pt2[1]);
+  const lineBTop = Math.min(lineB.pt1[1], lineB.pt2[1]);
+  if (lineBTop > lineABottom) {
+    // No shared y-space.
+    return false;
+  }
+
+  const intersection = intersect(lineA.pt1, lineA.pt2, lineB.pt1, lineB.pt2);
+  // console.log(intersection);
+  // But is this intersection actually in both line segments?
+  if (intersection[0] < lineALeft || intersection[0] > lineARight) {
+    return false;
+  }
+  if (intersection[1] < lineATop || intersection[1] > lineABottom) {
+    return false;
+  }
+  if (intersection[0] < lineBLeft || intersection[0] > lineBRight) {
+    return false;
+  }
+  if (intersection[1] < lineBTop || intersection[1] > lineBBottom) {
+    return false;
+  }
+  return true;
 }
