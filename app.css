@@ -80,6 +80,10 @@ line {
   stroke-width: 2;
 }
 
+#lineB {
+  stroke: red;
+}
+
 #box {
   fill: transparent;
   stroke: var(--ring);
