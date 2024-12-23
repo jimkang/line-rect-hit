@@ -107,7 +107,7 @@ function isInBounds(n, low, high) {
   return n >= low && n <= high;
 }
 
-export function linesIntersect(lineA, lineB) {
+export function linesIntersect(lineA, lineB, ignoreEndToEndContact = false) {
   const lineALeft = Math.min(lineA.pt1[0], lineA.pt2[0]);
   const lineBRight = Math.max(lineB.pt1[0], lineB.pt2[0]);
   if (lineALeft > lineBRight) {
@@ -152,5 +152,21 @@ export function linesIntersect(lineA, lineB) {
   if (intersection[1] < lineBTop || intersection[1] > lineBBottom) {
     return false;
   }
+
+  if (ignoreEndToEndContact) {
+    if (
+      (intersection[0] === lineALeft || intersection[0] === lineARight) &&
+      (intersection[1] === lineATop || intersection[1] === lineABottom)
+    ) {
+      return false;
+    }
+    if (
+      (intersection[0] === lineBLeft || intersection[0] === lineBRight) &&
+      (intersection[1] === lineBTop || intersection[1] === lineBBottom)
+    ) {
+      return false;
+    }
+  }
+
   return true;
 }
